@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Findora — Your Mini Search</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="icon" href="logo2.png">
+<!-- Inter font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<!-- basic meta for mobile app wrappers -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#7969EE" id="meta-theme-color">
+
+<style>
+  /* Mobile-first, CSS variables for light/dark */
+  :root{
+    --accent: #7969EE;
+    --bg: #fbfbff;
+    --card: #ffffff;
+    --muted: #6c7280;
+    --text: #0f1724;
+    --glass: rgba(255,255,255,0.6);
+    --shadow: 0 10px 30px rgba(16,24,40,0.06);
+    --radius: 14px;
+    --tap-size: 48px;
+    --transition: 180ms cubic-bezier(.2,.9,.3,1);
+    color-scheme: light;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+
+  /* dark theme */
+  [data-theme="dark"]{
+    --bg: #0b0b10;
+    --card: #0f172024; /* slight translucent card */
+    --muted: #9aa3b2;
+    --text: #e6eef8;
+    --shadow: 0 8px 30px rgba(2,6,23,0.6);
+    color-scheme: dark;
+  }
+
+  html,body{
+    height:100%;
+    margin:0;
+    background:linear-gradient(180deg,var(--bg), color-mix(in srgb, var(--bg) 85%, #ffffff 15%));
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    display:flex;
+    align-items:stretch;
+    justify-content:center;
+  }
+
+  /* container */
+  .wrap{
+    width:100%;
+    max-width:920px;
+    margin:env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:18px 6px;
+  }
+
+  .brand{
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+
+  .logo-svg{width:52px;height:52px;flex:0 0 52px;border-radius:12px;box-shadow:var(--shadow);}
+
+  .brand-title{font-weight:800;font-size:20px;color:var(--text);letter-spacing:-0.2px;}
+
+  .controls-top{display:flex;gap:8px;align-items:center;}
+
+  .toggle-btn{
+    --size:36px;
+    width:var(--size);height:var(--size);
+    border-radius:10px;border:none;background:transparent;display:inline-flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:transform var(--transition);
+  }
+  .toggle-btn:active{transform:scale(.96);}
+
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:14px;
+    box-shadow:var(--shadow);
+    margin: 8px 6px;
+    transition: box-shadow 220ms ease, transform 220ms ease;
+  }
+
+  .search-row{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:nowrap;
+  }
+
+  .search-input{
+    flex:1 1 auto;
+    padding:12px 14px;
+    border-radius:999px;
+    border:1px solid color-mix(in srgb, var(--muted) 12%, transparent);
+    background:transparent;
+    font-size:16px;color:var(--text);
+    outline:none;
+    transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+  }
+  /* focus-visible for keyboard users */
+  .search-input:focus-visible{
+    box-shadow: 0 6px 22px color-mix(in srgb, var(--accent) 22%, transparent);
+    border-color:var(--accent);
+  }
+
+  .btn{
+    min-width:var(--tap-size);
+    height:var(--tap-size);
+    padding:0 14px;border-radius:10px;border:none;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
+    font-size:15px;transition:transform var(--transition), box-shadow var(--transition);
+  }
+  .btn:active{transform:translateY(1px) scale(.995);}
+
+  .primary{background:linear-gradient(180deg,var(--accent), color-mix(in srgb,var(--accent) 80%, black 10%));color:#fff;box-shadow:0 8px 26px color-mix(in srgb,var(--accent) 30%, transparent);}
+  .muted{background:transparent;border:1px solid color-mix(in srgb,var(--muted) 18%, transparent);color:var(--muted);}
+
+  .meta{font-size:13px;color:var(--muted);margin-top:8px;text-align:center;}
+
+  /* results */
+  .results{margin:10px 6px 24px;display:block;}
+  .result-item{
+    background:linear-gradient(180deg, color-mix(in srgb,var(--card) 96%, #fff 4%), var(--card));
+    padding:12px;border-radius:10px;border:1px solid color-mix(in srgb,var(--muted) 8%, transparent);margin-bottom:10px;
+  }
+  .result-item a{color:var(--accent);font-weight:700;text-decoration:none;}
+  .result-url{font-size:13px;color:var(--muted);margin-top:6px;}
+
+  footer{padding:18px 6px;text-align:center;color:var(--muted);font-size:13px;}
+
+  /* responsive tweaks */
+  @media (max-width:520px){
+    .brand-title{font-size:18px;}
+    .logo-svg{width:48px;height:48px;}
+    .btn{min-width:44px;height:44px;font-size:14px;}
+    .search-input{font-size:15px;padding:12px;}
+  }
+
+  /* focus visible outlines for accessibility */
+  :focus{outline:none;}
+  :focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 18%, transparent);outline-offset:3px;border-radius:8px;}
+
+  /* subtle entrance animation */
+  .card{transform:translateY(0);opacity:1;}
+  .fade-in{animation: fadeIn .36s ease both;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none}}
+
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <!-- inline svg logo (keeps small, crisp) -->
+        <svg class="logo-svg" viewBox="0 0 84 84" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="false" focusable="false">
+          <defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="#7969EE" flood-opacity="0.12"/></filter></defs>
+          <circle cx="42" cy="42" r="40" fill="#7969EE" filter="url(#glow)"/>
+          <text x="50%" y="54%" text-anchor="middle" font-family="Inter, ui-sans-serif" font-weight="800" font-size="42" fill="#fff" dy="0.25em">F</text>
+        </svg>
+        <div>
+          <div class="brand-title">Findora</div>
+          <div class="meta" style="text-align:left;font-size:12px;margin-top:4px;">Fast search • Mobile-friendly</div>
+        </div>
+      </div>
+
+      <div class="controls-top">
+        <button class="toggle-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+          <!-- icon switched via JS -->
+          <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="card fade-in" role="main" aria-labelledby="main-title">
+      <div class="search-row" style="align-items:center;">
+        <input id="q" class="search-input" placeholder="Search (e.g. weather, news, recipe...)" aria-label="Search" />
+        <button id="searchBtn" class="btn primary" aria-label="Search"><i class="fas fa-search"></i></button>
+        <button id="luckyBtn" class="btn muted" aria-label="I'm Feeling Lucky">Lucky</button>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:center;justify-content:center;margin-top:10px;flex-wrap:wrap;">
+        <label style="font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
+          <input type="checkbox" id="demoToggle"> Demo
+        </label>
+        <div id="apiHint" class="meta"></div>
+      </div>
+
+
+    </main>
+
+    <footer class="small">Findora © <span id="year"></span> — built for mobile</footer>
+  </div>
+
+<!-- external JS (CSP-friendly) -->
+<script defer src="script.js"></script>
+</body>
+</html>
