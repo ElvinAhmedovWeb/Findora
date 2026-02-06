@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Findora - Gələcəyin Axtarış Sistemi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <meta name="color-scheme" content="light dark">
+    <style>
+        :root {
+            --primary-color: #7772FF;
+            --bg-color: #f4f6f8;
+            --container-bg: white;
+            --text-color: #333;
+            --search-shadow: rgba(119, 114, 255, 0.15);
+            --front-color: #4f29f0;
+            --back-color: #c3c8de;
+        }
+
+        /* Dark mode */
+        body.dark-mode {
+            --bg-color: #121212;
+            --container-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --search-shadow: rgba(0, 0, 0, 0.5);
+        }
+
+        html,body{height:100%;}
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; transition: background 0.3s ease;
+        }
+
+        .theme-toggle {
+            position: fixed; top: 22px; right: 22px;
+            font-size: 22px; cursor: pointer; color: var(--primary-color);
+            background: transparent; border: none; padding:8px; border-radius:8px;
+        }
+        .theme-toggle:hover { transform: rotate(10deg) scale(1.05); }
+
+        .container { text-align: center; width: 100%; max-width: 640px; padding: 20px; }
+
+        .logo {
+            font-size: 84px; font-weight: 600; color: var(--primary-color);
+            margin-bottom: 26px; letter-spacing: -3px;
+            animation: float 3s ease-in-out infinite;font-family: 'Poppins', sans-serif
+        }
+
+        .search-box {
+            display: flex; align-items: center; background: var(--container-bg);
+            border-radius: 50px; padding: 8px 15px;
+            box-shadow: 0 6px 22px var(--search-shadow);
+            border: 2px solid transparent; transition: all 0.28s ease;
+            max-width: 100%; margin: 0 auto;
+        }
+        .search-box:focus-within { border-color: var(--primary-color); transform: scale(1.01); }
+
+        .search-box i.fa-search { margin-left: 10px; color: #888; }
+
+        input#searchInput {
+            flex: 1; border: none; outline: none; font-size: 18px;
+            padding: 12px; background: transparent; color: var(--text-color);
+        }
+
+        .voice-btn { background: none; border: none; color: #888; font-size: 20px; cursor: pointer; margin-right: 12px; }
+        .voice-btn:hover { color: var(--primary-color); }
+        .voice-btn.recording { color: red; animation: pulse 1s infinite; }
+
+        button.search-btn {
+            background: var(--primary-color); color: white; border: none;
+            padding: 12px 24px; border-radius: 30px; font-weight: 600;
+            cursor: pointer; transition: transform .14s ease;
+        }
+        button.search-btn:hover { transform: translateY(-2px); }
+
+        .recent-searches { margin-top: 18px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .recent-tag { background: var(--container-bg); padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; box-shadow: 0 2px 6px var(--search-shadow); border: 1px solid #eee; }
+        .recent-tag:hover { background: var(--primary-color); color: white; }
+
+        #loader-container { 
+    display: none; 
+    margin-top: 50px; /* logonun çox aşağısına düşməsin */
+}
+#wifi-loader {
+    --background: #62abff;
+    --front-color: #4f29f0;
+    --back-color: #c3c8de;
+    --text-color: #414856;
+    width: 64px;
+    height: 64px;
+    border-radius: 50px;
+    position: relative; /* sticky əvəzinə relative */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* mərkəzləşdirmə üçün ən yaxşı yol */
+}
+
+#wifi-loader svg {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#wifi-loader svg circle {
+  position: absolute;
+  fill: none;
+  stroke-width: 6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: rotate(-100deg);
+  transform-origin: center;
+}
+
+#wifi-loader svg circle.back {
+  stroke: var(--back-color);
+}
+
+#wifi-loader svg circle.front {
+  stroke: var(--front-color);
+}
+
+#wifi-loader svg.circle-outer {
+  height: 86px;
+  width: 86px;
+}
+
+#wifi-loader svg.circle-outer circle {
+  stroke-dasharray: 62.75 188.25;
+}
+
+#wifi-loader svg.circle-outer circle.back {
+  animation: circle-outer135 1.8s ease infinite 0.3s;
+}
+
+#wifi-loader svg.circle-outer circle.front {
+  animation: circle-outer135 1.8s ease infinite 0.15s;
+}
+
+#wifi-loader svg.circle-middle {
+  height: 60px;
+  width: 60px;
+}
+
+#wifi-loader svg.circle-middle circle {
+  stroke-dasharray: 42.5 127.5;
+}
+
+#wifi-loader svg.circle-middle circle.back {
+  animation: circle-middle6123 1.8s ease infinite 0.25s;
+}
+
+#wifi-loader svg.circle-middle circle.front {
+  animation: circle-middle6123 1.8s ease infinite 0.1s;
+}
+
+#wifi-loader svg.circle-inner {
+  height: 34px;
+  width: 34px;
+}
+
+#wifi-loader svg.circle-inner circle {
+  stroke-dasharray: 22 66;
+}
+
+#wifi-loader svg.circle-inner circle.back {
+  animation: circle-inner162 1.8s ease infinite 0.2s;
+}
+
+#wifi-loader svg.circle-inner circle.front {
+  animation: circle-inner162 1.8s ease infinite 0.05s;
+}
+
+#wifi-loader .text {
+  position: absolute;
+  bottom: -40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: lowercase;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+}
+
+#wifi-loader .text::before, #wifi-loader .text::after {
+  content: attr(data-text);
+}
+
+#wifi-loader .text::before {
+  color: var(--text-color);
+}
+
+#wifi-loader .text::after {
+  color: var(--front-color);
+  animation: text-animation76 3.6s ease infinite;
+  position: absolute;
+  left: 0;
+}
+
+@keyframes circle-outer135 {
+  0% {
+    stroke-dashoffset: 25;
+  }
+
+  25% {
+    stroke-dashoffset: 0;
+  }
+
+  65% {
+    stroke-dashoffset: 301;
+  }
+
+  80% {
+    stroke-dashoffset: 276;
+  }
+
+  100% {
+    stroke-dashoffset: 276;
+  }
+}
+
+@keyframes circle-middle6123 {
+  0% {
+    stroke-dashoffset: 17;
+  }
+
+  25% {
+    stroke-dashoffset: 0;
+  }
+
+  65% {
+    stroke-dashoffset: 204;
+  }
+
+  80% {
+    stroke-dashoffset: 187;
+  }
+
+  100% {
+    stroke-dashoffset: 187;
+  }
+}
+
+@keyframes circle-inner162 {
+  0% {
+    stroke-dashoffset: 9;
+  }
+
+  25% {
+    stroke-dashoffset: 0;
+  }
+
+  65% {
+    stroke-dashoffset: 106;
+  }
+
+  80% {
+    stroke-dashoffset: 97;
+  }
+
+  100% {
+    stroke-dashoffset: 97;
+  }
+}
+
+@keyframes text-animation76 {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  50% {
+    clip-path: inset(0);
+  }
+
+  100% {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        @keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)} }
+
+        @media (max-width:520px){ .logo{font-size:56px} .search-box{padding:6px} #searchInput{font-size:16px} }
+    </style>
+</head>
+<body>
+
+    <button id="themeToggle" class="theme-toggle" aria-label="Gecə rejimi">
+        <i id="theme-icon" class="fas fa-moon" aria-hidden="true"></i>
+    </button>
+
+    <main class="container">
+        <h1 class="logo">Findora</h1>
+
+        <div id="search-ui">
+            <div class="search-box" role="search" aria-label="Axtarış">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <input id="searchInput" type="text" placeholder="Nə axtarmaq istərdiniz?" autocomplete="off" aria-label="Axtarış sözü">
+                <button id="voiceBtn" class="voice-btn" title="Səsli Axtarış" aria-label="Səsli axtarış"><i class="fas fa-microphone" aria-hidden="true"></i></button>
+                <button id="searchBtn" class="search-btn" aria-label="Axtar">Axtar</button>
+            </div>
+
+            <div class="recent-searches" id="recentSearches" aria-live="polite"></div>
+        </div>
+
+         <div id="loader-container"><!-- From Uiverse.io by mobinkakei --> 
+<div id="wifi-loader">
+    <svg class="circle-outer" viewBox="0 0 86 86">
+        <circle class="back" cx="43" cy="43" r="40"></circle>
+        <circle class="front" cx="43" cy="43" r="40"></circle>
+        <circle class="new" cx="43" cy="43" r="40"></circle>
+    </svg>
+    <svg class="circle-middle" viewBox="0 0 60 60">
+        <circle class="back" cx="30" cy="30" r="27"></circle>
+        <circle class="front" cx="30" cy="30" r="27"></circle>
+    </svg>
+    <svg class="circle-inner" viewBox="0 0 34 34">
+        <circle class="back" cx="17" cy="17" r="14"></circle>
+        <circle class="front" cx="17" cy="17" r="14"></circle>
+    </svg>
+    <div class="text" data-text="Searching"></div>
+</div></div>
+
+    </main>
+
+    <!-- External JS so CSP won't block inline scripts. Create index.js next to this file. -->
+    <script src="index.js" defer></script>
+</body>
+</html>

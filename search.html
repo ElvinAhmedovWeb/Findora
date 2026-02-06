@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Findora — Nəticələr</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    :root{ --main:#7772FF; --bg:#fff; --card:#f8f9fb; --text:#202124; --muted:#5f6368; --border:#e6e9ee }
+    body.dark-mode{ --bg:#0f1113; --card:#19191b; --text:#e8eaed; --muted:#9aa0a6; --border:#2a2a2f }
+    body{ font-family: 'Segoe UI', Arial, sans-serif; margin:0; background:var(--bg); color:var(--text); }
+    header{ display:flex; gap:16px; align-items:center; padding:18px 28px; border-bottom:1px solid var(--border); }
+    .logo{ font-weight:700; color:var(--main); text-decoration:none; font-size:20px }
+    #qInput{ flex:1; max-width:760px; padding:10px 16px; border-radius:24px; border:1px solid var(--border); outline:none; font-size:16px }
+    .controls{ display:flex; gap:12px; align-items:center }
+    .btn{ background:var(--main); color:#fff; border:none; padding:10px 14px; border-radius:10px; cursor:pointer }
+    .icon-btn{ background:none; border:none; cursor:pointer; font-size:18px; color:var(--main) }
+
+    .tabs{ display:flex; gap:12px; padding:12px 28px; border-bottom:1px solid var(--border) }
+    .tab{ padding:8px 12px; border-radius:10px; cursor:pointer; color:var(--muted) }
+    .tab.active{ background:rgba(119,114,255,0.08); color:var(--main); font-weight:600 }
+
+    #results{ padding:22px 28px; max-width:900px; margin:0 auto }
+    .item{ padding:14px 18px; border-radius:12px; border:1px solid var(--border); background:var(--card); margin-bottom:14px }
+    .item-url{ font-size:13px; color:var(--muted); word-break:break-all }
+    .item-title{ font-size:18px; color:var(--main); text-decoration:none; display:block; margin:8px 0 }
+    .item-desc{ color:var(--text); opacity:0.9; line-height:1.4 }
+
+    .wiki{ border-left:4px solid var(--main); padding:12px; margin-bottom:14px; background:rgba(119,114,255,0.04); }
+
+    .image-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px }
+    .img-box{ border-radius:8px; overflow:hidden; border:1px solid var(--border); background:#fff }
+    .img-box img{ width:100%; height:120px; object-fit:cover; display:block }
+    .img-box p{ margin:8px; font-size:13px; color:var(--text) }
+
+            #loader-container { 
+    display: none; 
+    margin-top: 50px; /* logonun çox aşağısına düşməsin */
+}
+#wifi-loader {
+    --background: #62abff;
+    --front-color: #4f29f0;
+    --back-color: #c3c8de;
+    --text-color: #414856;
+    width: 64px;
+    height: 64px;
+    border-radius: 50px;
+    position: relative; /* sticky əvəzinə relative */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* mərkəzləşdirmə üçün ən yaxşı yol */
+}
+
+#wifi-loader svg {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#wifi-loader svg circle {
+  position: absolute;
+  fill: none;
+  stroke-width: 6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: rotate(-100deg);
+  transform-origin: center;
+}
+
+#wifi-loader svg circle.back {
+  stroke: var(--back-color);
+}
+
+#wifi-loader svg circle.front {
+  stroke: var(--front-color);
+}
+
+#wifi-loader svg.circle-outer {
+  height: 86px;
+  width: 86px;
+}
+
+#wifi-loader svg.circle-outer circle {
+  stroke-dasharray: 62.75 188.25;
+}
+
+#wifi-loader svg.circle-outer circle.back {
+  animation: circle-outer135 1.8s ease infinite 0.3s;
+}
+
+#wifi-loader svg.circle-outer circle.front {
+  animation: circle-outer135 1.8s ease infinite 0.15s;
+}
+
+#wifi-loader svg.circle-middle {
+  height: 60px;
+  width: 60px;
+}
+
+#wifi-loader svg.circle-middle circle {
+  stroke-dasharray: 42.5 127.5;
+}
+
+#wifi-loader svg.circle-middle circle.back {
+  animation: circle-middle6123 1.8s ease infinite 0.25s;
+}
+
+#wifi-loader svg.circle-middle circle.front {
+  animation: circle-middle6123 1.8s ease infinite 0.1s;
+}
+
+#wifi-loader svg.circle-inner {
+  height: 34px;
+  width: 34px;
+}
+
+#wifi-loader svg.circle-inner circle {
+  stroke-dasharray: 22 66;
+}
+
+#wifi-loader svg.circle-inner circle.back {
+  animation: circle-inner162 1.8s ease infinite 0.2s;
+}
+
+#wifi-loader svg.circle-inner circle.front {
+  animation: circle-inner162 1.8s ease infinite 0.05s;
+}
+
+#wifi-loader .text {
+  position: absolute;
+  bottom: -40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: lowercase;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+}
+
+#wifi-loader .text::before, #wifi-loader .text::after {
+  content: attr(data-text);
+}
+
+#wifi-loader .text::before {
+  color: var(--text-color);
+}
+
+#wifi-loader .text::after {
+  color: var(--front-color);
+  animation: text-animation76 3.6s ease infinite;
+  position: absolute;
+  left: 0;
+}
+
+@keyframes circle-outer135 {
+  0% {
+    stroke-dashoffset: 25;
+  }
+
+  25% {
+    stroke-dashoffset: 0;
+  }
+
+  65% {
+    stroke-dashoffset: 301;
+  }
+
+  80% {
+    stroke-dashoffset: 276;
+  }
+
+  100% {
+    stroke-dashoffset: 276;
+  }
+}
+
+@keyframes circle-middle6123 {
+  0% {
+    stroke-dashoffset: 17;
+  }
+
+  25% {
+    stroke-dashoffset: 0;
+  }
+
+  65% {
+    stroke-dashoffset: 204;
+  }
+
+  80% {
+    stroke-dashoffset: 187;
+  }
+
+  100% {
+    stroke-dashoffset: 187;
+  }
+}
+
+@keyframes circle-inner162 {
+  0% {
+    stroke-dashoffset: 9;
+  }
+
+  25% {
+    stroke-dashoffset: 0;
+  }
+
+  65% {
+    stroke-dashoffset: 106;
+  }
+
+  80% {
+    stroke-dashoffset: 97;
+  }
+
+  100% {
+    stroke-dashoffset: 97;
+  }
+}
+
+@keyframes text-animation76 {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  50% {
+    clip-path: inset(0);
+  }
+
+  100% {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+
+    .meta{ color:var(--muted); font-size:13px; margin-bottom:8px }
+    .notice{ color:var(--muted); margin:0 180px;  }
+
+    @media (max-width:720px){ .notice{margin: 0 10px;height: 150px;} header{ flex-direction:column; align-items:stretch } .tabs{ overflow:auto }
+      #qInput{ max-width:100% }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="index.html">Findora</a>
+    <input id="qInput" type="search" placeholder="Nə axtarırsan?" aria-label="Axtarış">
+
+    <div class="controls">
+      <button id="voiceBtn" class="icon-btn" title="Səsli axtarış"><i class="fas fa-microphone"></i></button>
+      <button id="searchBtn" class="btn">Axtar</button>
+      <button id="themeToggle" class="icon-btn" title="Gecə rejimi"><i id="themeIcon" class="fas fa-moon"></i></button>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Nəticə növü">
+    <div class="tab active" data-type="all"> <i class="fas fa-search"></i> Hamısı</div>
+    <div class="tab" data-type="image"> <i class="fas fa-image"></i> Şəkillər</div>
+    <div class="tab" data-type="video"> <i class="fas fa-video"></i> Videolar</div>
+  </div>
+
+  <main id="results">
+        <div id="loader-container"><!-- From Uiverse.io by mobinkakei --> 
+<div id="wifi-loader">
+    <svg class="circle-outer" viewBox="0 0 86 86">
+        <circle class="back" cx="43" cy="43" r="40"></circle>
+        <circle class="front" cx="43" cy="43" r="40"></circle>
+        <circle class="new" cx="43" cy="43" r="40"></circle>
+    </svg>
+    <svg class="circle-middle" viewBox="0 0 60 60">
+        <circle class="back" cx="30" cy="30" r="27"></circle>
+        <circle class="front" cx="30" cy="30" r="27"></circle>
+    </svg>
+    <svg class="circle-inner" viewBox="0 0 34 34">
+        <circle class="back" cx="17" cy="17" r="14"></circle>
+        <circle class="front" cx="17" cy="17" r="14"></circle>
+    </svg>
+    <div class="text" data-text="Searching"></div>
+</div></div>
+    </div>
+
+    <div id="content"></div>
+  </main>
+
+<script src="search.js"></script>
+</body>
+</html>
