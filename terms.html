@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstifadə Şərtləri — Findora</title>
+    <link rel="shortcut icon" href="logo2.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7772FF;
+            --primary-glow: rgba(119, 114, 255, 0.25);
+            --primary-light: rgba(119, 114, 255, 0.08);
+            --bg: #f8f9fb;
+            --surface: #ffffff;
+            --text: #1a1a2e;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --radius: 24px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode {
+            --bg: #0a0a0f;
+            --surface: #15151f;
+            --text: #e8eaed;
+            --text-muted: #9aa0a6;
+            --border: #2a2a3a;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px;
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            letter-spacing: -1.5px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--primary);
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--text);
+            opacity: 0.9;
+        }
+
+        ul {
+            margin-bottom: 16px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                margin: 20px;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Ana səhifəyə qayıt</a>
+        <div class="header">
+            <a href="index.html" class="logo">Findora</a>
+        </div>
+
+        <h1>İstifadə Şərtləri</h1>
+        <p>Xidmətlərimizdən istifadə etməklə siz aşağıdakı şərtlərlə razılaşırsınız.</p>
+
+        <h2>1. Xidmətin Təsviri</h2>
+        <p>Findora, süni intellekt dəstəyi ilə veb üzərində axtarış aparmağa imkan verən bir platformadır. Biz
+            Wikipedia, DuckDuckGo və digər mənbələrdən gələn məlumatları sizin üçün sistemləşdiririk.</p>
+
+        <h2>2. Süni İntellektin Məsuliyyəti</h2>
+        <p>AI tərəfindən verilən cavablar hər zaman 100% dəqiq olmaya bilər. Findora AI tərəfindən yaradılan kontentin
+            yanlışlığına görə məsuliyyət daşımır. Vacib qərarlar verərkən məlumatları rəsmi mənbələrdən yoxlamanız
+            tövsiyə olunur.</p>
+
+        <h2>3. Qadağan Olunmuş İstifadə</h2>
+        <ul>
+            <li>Xidmətin fəaliyyətinə mane olacaq avtomatlaşdırılmış sorğular (botlar) göndərmək.</li>
+            <li>AI modelini qeyri-etik və ya qanunsuz məqsədlər üçün istifadə etmək.</li>
+            <li>Sistemin təhlükəsizlik boşluqlarını axtarmaq və ya zərər vurmağa cəhd etmək.</li>
+        </ul>
+
+        <h2>4. Əqli Mülkiyyət</h2>
+        <p>Findora brendi, loqosu və dizaynı Five Apps komandasına məxsusdur. Sistemin kodlarını icazəsiz kopyalamaq
+            qadağandır.</p>
+
+        <h2>5. Dəyişikliklər</h2>
+        <p>Biz bu şərtləri istənilən vaxt yeniləyə bilərik. Yeniliklərdən xəbərdar olmaq üçün bu səhifəni mütəmadi
+            olaraq yoxlamanız xahiş olunur.</p>
+    </div>
+
+    <div class="footer">
+        Findora © 2026 — <a href="about.html">Haqqında</a> · <a href="privacy.html">Gizlilik</a>
+    </div>
+
+    <script>
+        const savedTheme = localStorage.getItem('findora_theme');
+        if (savedTheme === 'dark') document.body.classList.add('dark-mode');
+    </script>
+</body>
+
+</html>

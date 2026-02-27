@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Findora Haqqında — Gələcəyin Axtarış Sistemi</title>
+    <link rel="shortcut icon" href="logo2.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7772FF;
+            --primary-glow: rgba(119, 114, 255, 0.25);
+            --primary-light: rgba(119, 114, 255, 0.08);
+            --bg: #f8f9fb;
+            --surface: #ffffff;
+            --text: #1a1a2e;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --radius: 24px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode {
+            --bg: #0a0a0f;
+            --surface: #15151f;
+            --text: #e8eaed;
+            --text-muted: #9aa0a6;
+            --border: #2a2a3a;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 40px;
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .logo {
+            font-size: 64px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: -3px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            padding: 32px;
+            background: var(--primary-light);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .feature-card i {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .badge {
+            padding: 8px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-bottom: 32px;
+        }
+
+        .back-btn:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                margin: 20px;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Ana səhifəyə qayıt</a>
+
+        <div class="header-section">
+            <h1 class="logo">Findora</h1>
+            <p class="subtitle">Ağıllı Axtarışın Yeni Ünvanı</p>
+        </div>
+
+        <div class="content">
+            <h2 style="margin-bottom: 16px; color: var(--primary);">Missiyamız</h2>
+            <p style="font-size: 17px; margin-bottom: 32px; opacity: 0.9;">
+                Findora-nın əsas məqsədi məlumatı daha əlçatan, sürətli və ağıllı etməkdir. Biz ənənəvi axtarış
+                sistemlərindən fərqli olaraq, süni intellektin gücündən istifadə edərək sizə sadəcə linklər deyil, həm
+                də birbaşa cavablar təqdim edirik.
+            </p>
+
+            <div class="mission-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Sürətli və Dəqiq</h3>
+                    <p>Groq-un ultra-fleş texnologiyası ilə saniyələr içində ən mürəkkəb suallara belə cavab tapın.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>Gizlilik Üstünlüyü</h3>
+                    <p>Sizin şəxsi məlumatlarınızı izləmirik və reklam məqsədli profillər yaratmırıq.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>AI-Dəstəkli</h3>
+                    <p>Wikipedia və DuckDuckGo-dan gələn məlumatlar süni intellekt tərəfindən analiz edilərək təqdim
+                        olunur.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Hər Yerdə</h3>
+                    <p>İstər kompüterdə, istərsə də mobil cihazınızda qüsursuz istifadə təcrübəsi.</p>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 48px; margin-bottom: 16px; color: var(--primary);">İstifadə Olunan Texnologiyalar
+            </h2>
+            <div class="tech-badges">
+                <span class="badge">Groq LPU™</span>
+                <span class="badge">DuckDuckGo API</span>
+                <span class="badge">Wikipedia API</span>
+                <span class="badge">Modern JavaScript</span>
+                <span class="badge">Glassmorphism Design</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Findora © 2026 — <a href="privacy.html">Gizlilik</a> · <a href="terms.html">Şərtlər</a> · Created by
+        <strong>Five Apps</strong>
+    </div>
+
+    <script>
+        const savedTheme = localStorage.getItem('findora_theme');
+        if (savedTheme === 'dark') document.body.classList.add('dark-mode');
+    </script>
+</body>
+
+</html>

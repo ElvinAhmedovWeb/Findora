@@ -17,6 +17,7 @@
     "express": "^5.2.1",
     "express-rate-limit": "^8.2.1",
     "google-it": "^1.6.4",
+    "groq-sdk": "^0.37.0",
     "helmet": "^8.1.0"
   }
 }
